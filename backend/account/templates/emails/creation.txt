@@ -1,0 +1,7 @@
+Felicitaciones, {{ user.get_full_name }},
+<br>
+Su cuenta ha sido creada con éxito, puede ingresar a través de este enlace:
+<a href="{{ link }}">{{ link }}</a>
+Si no puede ingresar, intente copiando el enlace manualmente:
+<p>{{ link }}</p>
+<br>
