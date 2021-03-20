@@ -9,15 +9,13 @@ services:
     networks:
       - backend
     ports:
-      - "0.0.0.0:${IFN_WEB_HTTPS_PORT}:443"
-      - "0.0.0.0:${IFN_WEB_HTTP_DEV_PORT}:8000"
-      - "8009:84" #  proxy -> backend
-      - "8005:8081" # backend = django
+      - "0.0.0.0:${WEB_HTTP_PORT}:8000"
+      - "8101:84" #  proxy -> backend
+      - "8102:8081" # backend = django
     volumes:
       - ./backend:/app
       - ./bin:/usr/local/scripts
       - ./nginx:/nginx
-      - ./static:/static
       - ./media:/app_media
     # restart: always
     depends_on:
