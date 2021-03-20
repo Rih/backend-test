@@ -4,6 +4,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from account.managers import UserManager
+from api.models import Apimodel
 from django.core.mail import send_mail
 # Create your models here.
 
@@ -56,20 +57,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         '''
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-
-class Company(models.Model):
-    rut = models.IntegerField()
-    dv = models.CharField(max_length=1)
-    name = models.CharField(max_length=100)
-    year_constitution = models.CharField(max_length=4)
-    address = models.CharField(max_length=200)
-    contact_phone = models.CharField(max_length=30)
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def get_full_rut(self):
-        return str(self.rut) + '-' + str(self.dv)

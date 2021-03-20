@@ -24,7 +24,6 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
-from account.views import CustomTokenObtainPairView, PermissionsView
 from rest_framework_swagger.views import get_swagger_view
 
 schema_view = get_swagger_view(title='API', url='/swagger')
@@ -33,17 +32,9 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^swagger/$', schema_view),
-    path('grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', admin.site.urls),
-    path('api/v1/', include('visor.urls', namespace='api')),
-    path('api-account/v1/', include('account.urls', namespace='api_account')),
-    path('api-visor/v1/', include('visor.urls', namespace='api_visor')),
-    path('api-xstock/v1/', include('xstock.urls', namespace='api_xstock')),
-    path('api-extractor/v1/', include('extractor.urls', namespace='api_extractor')),
-    path('api/v1/token/permissions/', PermissionsView.as_view(), name='token_permissions0'),
-    path('api-visor/v1/token/permissions/', PermissionsView.as_view(), name='token_permissions1'),
-    path('api-xstock/v1/token/permissions/', PermissionsView.as_view(), name='token_permissions2'),
-    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/', include('api.urls', namespace='api')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

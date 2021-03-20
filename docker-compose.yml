@@ -10,8 +10,7 @@ services:
       - backend
     ports:
       - "0.0.0.0:${WEB_HTTP_PORT}:8000"
-      - "8101:84" #  proxy -> backend
-      - "8102:8081" # backend = django
+      - "80:80" #  proxy -> backend = django
     volumes:
       - ./backend:/app
       - ./bin:/usr/local/scripts
@@ -21,6 +20,7 @@ services:
     depends_on:
       - db
     tty: true
+
   db:
     image: postgres
     container_name: postgres_enviame

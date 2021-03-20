@@ -1,5 +1,6 @@
 import factory
-from factory import SubFactory
+import datetime
+import random
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -12,9 +13,5 @@ class UserAccountFactory(factory.django.DjangoModelFactory):
     last_name = 'Doe'
     username = 'user'
     email = 'email@admin.cl'
+    date_joined = factory.LazyFunction(datetime.datetime.now)
 
-
-class RoleFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Role
-    name = 'mi_role'

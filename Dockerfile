@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM python:3.7-buster
 MAINTAINER Rodrigo Diaz <rodrigo.ediaz.f@gmail.com>
 RUN apt-get update
 RUN apt-get install -y software-properties-common apt-utils locales locales-all \
@@ -7,7 +7,7 @@ python3.7 python3.7-dev python3-distutils \
 git \
 nano \
 vim \
-curl
+curl --no-install-recommends
 
 RUN apt-get clean
 
@@ -22,7 +22,7 @@ COPY ./backend/enviame/uwsgi.ini /uwsgi.ini
 COPY ./entrypoint-back.sh /usr/local/entrypoint-back.sh
 RUN chmod +x /etc/init.d/uwsgi.conf
 RUN chmod +x /usr/local/entrypoint-back.sh
-RUN touch /var/log/ifn_uwsgi.log && chown www-data:www-data /var/log/ifn_uwsgi.log
+RUN touch /var/log/uwsgi.log && chown www-data:www-data /var/log/uwsgi.log
 
 # Set the locale
 RUN locale-gen es_CL.UTF-8
@@ -30,7 +30,7 @@ ENV LANG es_CL.UTF-8
 ENV LANGUAGE es_CL
 ENV LC_ALL es_CL.UTF-8
 
-EXPOSE 8000 8005 8081 9091
+EXPOSE 8000 80 8081 9091
 
 
 CMD ["/usr/local/entrypoint-back.sh"]

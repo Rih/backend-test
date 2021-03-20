@@ -51,14 +51,15 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'api',
     'account',
+    'ejercicio_2',
 ]
 
 
 # 3rd party apps
 
 INSTALLED_APPS += [
+    # 'django_faker',
     'rest_framework',
-    'drf_multiple_model',
     'corsheaders',
     'rest_framework_recaptcha',
     'rest_framework_swagger',
@@ -98,7 +99,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ifn.wsgi.application'
+WSGI_APPLICATION = 'enviame.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

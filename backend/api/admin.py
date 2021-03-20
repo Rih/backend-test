@@ -8,7 +8,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Permission
-from account.models import Role
 # Register your models here.
 
 admin.site.register(Permission)
@@ -52,12 +51,3 @@ class CustomUserAdmin(UserAdmin):
                 form.base_fields[f].disabled = True
 
         return form
-
-
-from django.contrib.auth.admin import GroupAdmin
-from django.contrib.auth.models import Group
-
-
-
-admin.site.unregister(Group)
-admin.site.register(Role, GroupAdmin)

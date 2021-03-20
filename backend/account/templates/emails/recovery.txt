@@ -1,7 +1,0 @@
-Estimad@ {{ user.get_full_name }},
-<br>
-Has solicitado un cambio de contraseña, ingresa a través de este enlace para efectuar el cambio:
-<a href="{% url 'account:account_recovery' user.pk user.token_recovery %}">{% url 'account:account_recovery' user.pk user.token_recovery %}</a>
-Si no puede ingresar, intente copiando el enlace manualmente:
-<p>{% url 'account:account_recovery' user.pk user.token_recovery %}</p>
-<br>
