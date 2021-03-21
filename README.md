@@ -20,18 +20,20 @@ R:
 2. [docker-compose](https://docs.docker.com/compose/install/) 1.24.1 o superior
 
 #### Pasos de instalación
+Importante: Para todos estos script siempre estar localizado en la raíz del proyecto `~/backend-test/`.
+
 * Ejecutar lo siguiente para construir servidores:
     1. `docker-compose build` o bien `sh bin/build-servers.sh` 
     2. Para iniciar: `docker-compose up -d` o bien `sh bin/start-dev-server.sh`
 * Ejecutar lo siguiente para configurar nginx:
-    1. `docker exec -it $(docker-compose ps -q web) bash`  o bien `sh bin/enter-web-server.sh`    
+    1. Entrar al contenedor web: `docker exec -it $(docker-compose ps -q web) bash`  o bien `sh bin/enter-web-server.sh`    
     2. Apuntar sitio de nginx para reverse-proxy a uwsgi: `ln -s /nginx/app_back /etc/nginx/sites-enabled/app_back`
     3. Salir: `exit`
     4. cp backend/enviame/local_settings.py.example backend/enviame/local_settings.py
     5. Indicar credenciales de .env en variable DATABASES = {...} de local_settings.py
     6. Reiniciar contenedores:
         - `docker-compose stop` y `docker-compose up -d` o bien `sh/reload-containers.sh`
-    7. Si el servidor nginx esta OK: visitar localhost, debiera dar 404 Not Found con una lista urls
+    7. Si el servidor nginx esta OK: visitar localhost, debiera dar 404 Not Found con una lista de posibles urls
     8. Si la BD esta conectada, Ejecutar las migraciones:
         - `docker exec  -it app_web_enviame python3.7 manage.py migrate` o bien `sh bin/migrate.sh`   
     9. Crear assets admin: `docker exec  -it app_web_enviame python3.7 manage.py collectstatic` o bien `sh bin/make-assets.sh`
@@ -206,7 +208,7 @@ CREATE TABLE public."employees"(
   salary int NOT NULL
 );
 
-insert into continents values (6, 'América', 4);
+insert into continents values (1, 'América', 4);
 insert into continents values (2, 'Europa', 5);
 insert into continents values (3, 'Asia', 6);
 insert into continents values (4, 'Oceanía', 6);
@@ -237,3 +239,12 @@ insert into employees values (9, 9, 'Aamir', 'Khan', 2000);
 insert into employees values (10, 10, 'Takumi', 'Fujiwara', 5000);
 insert into employees values (11, 11, 'Heung-min', 'Son', 5100);
 insert into employees values (12, 12, 'Peter', 'Johnson', 6100);
+
+R:
+* Si ya se tiene un modelo creado, usar directamente el Script en backend/ejercicio_7/salary_adjust.sql`, solo probado en postgreSQL
+* De otra forma, se puede crear el modelo desde el mismo proyecto backend
+usando lo siguiente 
+    -  Crear las tablas con: `docker exec  -it app_web_enviame python3.7 manage.py migrate` o bien `sh bin/migrate.sh` si no se ha hecho antes.
+    -  para poblar la bd: `docker exec  -it app_web_enviame python3.7 manage.py loaddata continents.json countries.json employees.json` o bien `sh bin/load-init-employee.sh`
+    - o usar el script sql modificado a postgreSQL: `backend/ejercicio_7/populate.sql
+* Ejecutar el script en el browser DB a gusto: ej. [DBeaver](https://dbeaver.io/download/)

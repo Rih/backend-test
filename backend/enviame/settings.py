@@ -52,6 +52,7 @@ INSTALLED_APPS += [
     'api',
     'account',
     'ejercicio_2',
+    'ejercicio_7',
 ]
 
 
