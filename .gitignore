@@ -1,4 +1,6 @@
 .idea
 .env
+env_iame/
+local_settings.py
 .coverage
 __pycache__/

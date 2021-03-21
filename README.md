@@ -14,18 +14,71 @@ En caso de preguntas dirigete a: *tech-test@enviame.io*, usando el asunto [Backe
 Configura un ambiente en docker que permita ejecutar un entorno web con el stack a tu elección. 
 El contenedor de la base de datos debe ser diferente al que contenga tu aplicación, ej: Contenedor 1: Nginx, Contenedor 2: Mysql (composición de servicios docker)
 
-Solucion:
-#### Prerequisitos: docker 19.03.2 o superior, docker-compose 1.24.1 o superior
+R: 
+#### Prerequisitos: 
+1. [docker](https://docs.docker.com/get-docker/) 19.03.2 o superior
+2. [docker-compose](https://docs.docker.com/compose/install/) 1.24.1 o superior
+
+#### Pasos de instalación
 * Ejecutar lo siguiente para construir servidores:
     1. `docker-compose build` o bien `sh bin/build-servers.sh` 
     2. Para iniciar: `docker-compose up -d` o bien `sh bin/start-dev-server.sh`
 * Ejecutar lo siguiente para configurar nginx:
     1. `docker exec -it $(docker-compose ps -q web) bash`  o bien `sh bin/enter-web-server.sh`    
-    2. `ln -s /nginx/app_back /etc/nginx/sites-enabled/app_back`
-    
+    2. Apuntar sitio de nginx para reverse-proxy a uwsgi: `ln -s /nginx/app_back /etc/nginx/sites-enabled/app_back`
+    3. Salir: `exit`
+    4. cp backend/enviame/local_settings.py.example backend/enviame/local_settings.py
+    5. Indicar credenciales de .env en variable DATABASES = {...} de local_settings.py
+    6. Reiniciar contenedores:
+        - `docker-compose stop` y `docker-compose up -d` o bien `sh/reload-containers.sh`
+    7. Si el servidor nginx esta OK: visitar localhost, debiera dar 404 Not Found con una lista urls
+    8. Si la BD esta conectada, Ejecutar las migraciones:
+        - `docker exec  -it app_web_enviame python3.7 manage.py migrate` o bien `sh bin/migrate.sh`   
+    9. Crear assets admin: `docker exec  -it app_web_enviame python3.7 manage.py collectstatic` o bien `sh bin/make-assets.sh`
+    10. Crear primer usuario admin: `sh bin/load-init-user.sh` o bien `docker exec  -it app_web_enviame python3.7 manage.py loaddata usuario.json`
+    11 Si los assets estan OK: visitar localhost/admin y entrar con el primer usuario
 ### Ejercicio 2: API REST + CRUD
 
 Dentro del ambiente dockerizado desarrolla una API Rest, con el stack de tu preferencia, que implemente un CRUD de una entidad tipo 'empresa'. Preocupate de incluir un script que genere N registros con datos "fake" (utilizando una librería faker).
+* En primer lugar los endpoint estan protegidos por API key
+* Debe "iniciar sesion" desde postman para solicitar el access key
+    * URL: `http://localhost/api/token/`
+    * payload:
+    ```json
+    {
+	    "email": "root@admin.cl",
+        "password": "<your_admin_password>"
+    }
+    ```
+  
+  * El usuario de ejemplo puede ser creado por el siguiente script si no se hizo en el paso previo:
+    * `sh bin/load-init-user.sh` o bien `docker exec  -it app_web_enviame python3.7 manage.py loaddata usuario.json`
+    * La contraseña se proporcinará por e-mail a la entrega de este test
+    
+  * Resultado esperado:
+    ```json
+      {
+        "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYxNjUxMzg0OSwianRpIjoiN2Y3MjIwNTMwNTUxNDY1Yjg1Y2M0MTIwZDliY2E2ODQiLCJ1c2VyX2lkIjoxfQ.SAQmz1hmx8KjIyJKZ4WRHnBXou3sF5pSPCxiUgQvXT4",
+        "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2MzY5ODQ5LCJqdGkiOiIyYjg0ZTJmNGYwY2M0MzY2OTE5OWQxNTI5Njk1M2E4ZCIsInVzZXJfaWQiOjF9.9EA35dfNaijXns0X8Pa5LhamDjezpDdEEZDVrZfwOvs"
+    }
+   ```
+  * Usar el valor de access en Authorization Bearer $access
+  
+* Hay un endpoint para generar datos fake de empresa:
+    * URL: `http://localhost/api/v1/faker/create-companies/`
+    * Header: 
+    `Authorization Bearer eyJ0eXA.....LQ-VT_dHis` (access de ejemplo)
+    * payload: 
+    ```json
+    {
+      "batch_number": 10
+    }
+    ```
+   
+
+
+* Hay dos maneras de generar
+localhost/api/v1/faker/create-companies/
 
 ### Ejercicio 3: Análisis + Desarrollo 
 
@@ -33,9 +86,29 @@ Crea un script en el lenguaje de tu elección y encuentre la(s) cadena de texto 
 
 `afoolishconsistencyisthehobgoblinoflittlemindsadoredbylittlestatesmenandphilosophersanddivineswithconsistencyagreatsoulhassimplynothingtodohemayaswellconcernhimselfwithhisshadowonthewallspeakwhatyouthinknowinhardwordsandtomorrowspeakwhattomorrowthinksinhardwordsagainthoughitcontradicteverythingyousaidtodayahsoyoushallbesuretobemisunderstoodisitsobadthentobemisunderstoodpythagoraswasmisunderstoodandsocratesandjesusandlutherandcopernicusandgalileoandnewtonandeverypureandwisespiritthatevertookfleshtobegreatistobemisunderstood`
 
+
+R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
+* Opción 1:
+    * Levantar contenedor `sh bin/start-dev-server.sh`
+    * Ejecutar `sh bin/exercise-3.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_3/palindrome.py`
+* Opción 2:
+    * Prerequisitos:
+        - python3
+        - pip
+    * Instalar virtualenv: pip install virtualenv
+    * Crear un ambiente: 
+        - `virtualenv --python='python3' env_iame`
+    * Ingresar al ambiente:
+        - `source env_iame/bin/activate`  
+    * Si aparece en el prompt de la consola (env_viame). Ejecutar:
+        - `python backend/ejercicio_3/palindrome.py`   
+   
 ### Ejercicio 4: Consumo API Envíame para la creación de un envío
 Desarrolla una función o script que consuma la API Envíame para la creación de un Envío y almacene la respuesta en algún medio de almacenamiento permanente.
 Documentación (Postman) del endpoint a usar: [Colección Postman](https://github.com/enviame/backend-test/blob/main/Backend-test.postman_collection.json)
+
+
+
 
 ### Ejercicio 5: Análisis + Desarrollo
 La serie de Fibonacci se construye utilizando la siguiente relación de recurrencia: `Fn = Fn1 + Fn2, donde F1 = 1 y F2 = 1`. Por ende, los primeros doce términos de esta serie son: `1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144`
@@ -61,6 +134,22 @@ Como se puede ver, 144 es el primer número de la serie de Fibonacci que tiene m
 Crea un script en tu lenguaje favorito que obtenga el primer número de Fibonacci que tiene más de 1000 divisores.
 
 
+R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
+* Opción 1:
+    * Levantar contenedor `sh bin/start-dev-server.sh`
+    * Ejecutar `sh bin/exercise-5.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_5/fibo_divisors.py`
+* Opción 2:
+    * Prerequisitos:
+        - python3
+        - pip
+    * Instalar virtualenv: pip install virtualenv
+    * Crear un ambiente: 
+        - `virtualenv --python='python3' env_iame`
+    * Ingresar al ambiente:
+        - `source env_iame/bin/activate`  
+    * Si aparece en el prompt de la consola (env_viame). Ejecutar:
+        - `python backend/ejercicio_5/fibo_divisors.py` 
+
 ### Ejercicio 6: Análisis + Desarrollo Aplicado a Negocio
 Desarrolla una función o procedimiento que estime el tiempo de entrega de la entrega de una compra online (en días), en función de la distancia que existe entre una dirección de origen y destino.
 
@@ -76,6 +165,23 @@ Asuma que el tiempo de despacho está determinado por una sucesión numérica, d
 * Rango 5. Menos de 500 km, se entregan al tercer día (Día tres)
 ...
 * Rango n. Menos de n km, Los días de entrega se calculan como la suma de los días de entrega de los rangos n–1 y n-2
+
+
+R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
+* Opción 1:
+    * Levantar contenedor `sh bin/start-dev-server.sh`
+    * Ejecutar `sh bin/exercise-6.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_6/estimate_distance.py`
+* Opción 2:
+    * Prerequisitos:
+        - python3
+        - pip
+    * Instalar virtualenv: pip install virtualenv
+    * Crear un ambiente: 
+        - `virtualenv --python='python3' env_iame`
+    * Ingresar al ambiente:
+        - `source env_iame/bin/activate`  
+    * Si aparece en el prompt de la consola (env_viame). Ejecutar:
+        - `python backend/ejercicio_6/estimate_distance.py` 
 
 ### Ejercicio 7: SQL
 -- Actualizar los sueldos de los empleados que ganen $5000 o menos, de acuerdo al reajuste anual del continente al que pertenecen.
@@ -131,19 +237,3 @@ insert into employees values (9, 9, 'Aamir', 'Khan', 2000);
 insert into employees values (10, 10, 'Takumi', 'Fujiwara', 5000);
 insert into employees values (11, 11, 'Heung-min', 'Son', 5100);
 insert into employees values (12, 12, 'Peter', 'Johnson', 6100);
-
-
-SELECT 
-emp.first_name, emp.salary, 
-cont.anual_adjustment, cont.name,
-cty.name,
-emp.salary * (1 + cont.anual_adjustment/100) new_salary
-FROM employees emp
-INNER JOIN countries cty ON cty.id = emp.country_id
-INNER JOIN continents cont ON cty.continent_id = cont.id
-
-
-UPDATE employees
-INNER JOIN countries cty ON cty.id = employees.country_id
-INNER JOIN continents cont ON cty.continent_id = cont.id
-SET salary = salary * (1 + cont.anual_adjustment/100)
