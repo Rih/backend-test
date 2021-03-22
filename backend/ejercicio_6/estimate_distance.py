@@ -4,14 +4,14 @@ import math
 import random
 
 
-def fibo(n, dp):
+def fibonacci(n, dp):
     if n == 0 or n == 1:
         return n, dp
     if dp.get(str(n - 1)) and dp.get(str(n - 2)):
         dp[str(n)] = dp[str(n - 1)] + dp[str(n - 2)]
     else:
-        n_1, dp = fibo(n - 1, dp)
-        n_2, dp = fibo(n - 2, dp)
+        n_1, dp = fibonacci(n - 1, dp)
+        n_2, dp = fibonacci(n - 2, dp)
         dp[str(n)] = n_1 + n_2
     return dp[str(n)], dp
 
@@ -20,8 +20,7 @@ def get_delivery_days(dp, distance):
     ith = math.ceil(distance / 100.0)
     if distance < 100.0:
         return dp, 0
-    n, dp = fibo(ith - 1, dp)
-    nth_fib = str(ith)
+    n, dp = fibonacci(ith - 1, dp)
     return dp, n
 
 
