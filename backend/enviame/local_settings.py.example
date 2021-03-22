@@ -12,11 +12,6 @@ ENVIRONMENT = 'DEVELOPMENT'
 
 BASE_DIRR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# run inside cmd or django shell or proper virtual environment
-# setup with dependency: cryptography.fernet import Fernet
-# key = Fernet.generate_key()
-ENCRYPT_KEY = b'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -61,23 +56,23 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 if ENVIRONMENT in ['DEVELOPMENT']:
     # CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGIN_WHITELIST = (
-        'http://localhost:8080',  # dev
+        'http://localhost:8877',  # dev
     )
     CSRF_TRUSTED_ORIGINS = (
-        'http://localhost:8080',  # dev
+        'http://localhost:8877',  # dev
     )
 elif ENVIRONMENT in ['PRODUCTION']:
     CORS_ORIGIN_WHITELIST = (
-        'http://localhost:8080',  # dev
+        'http://localhost:8877',  # dev
     )
     CSRF_TRUSTED_ORIGINS = (
-        'http://localhost:8080',  # dev
+        'http://localhost:8877',  # dev
     )
 
 elif ENVIRONMENT in ['PRODUCTION']:
     CORS_ORIGIN_WHITELIST = (
-        'http://localhost:8080',  # dev
+        'http://localhost:8877',  # dev
     )
     CSRF_TRUSTED_ORIGINS = (
-        'http://localhost:8080',  # dev
+        'http://localhost:8877',  # dev
     )

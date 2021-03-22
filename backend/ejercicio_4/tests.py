@@ -22,6 +22,6 @@ class Ejercicio04Test(SimpleTestCase):
         '''
 
     def test_connection_insert_handler(self):
-        # python3.7 manage.py test ejercicio_4.tests.Ejercicio04Test.test_connection_insert_handler
+        # python3 manage.py test ejercicio_4.tests.Ejercicio04Test.test_connection_insert_handler
         result = ConnectDB(table='person').insert_handler(result_api)
         print(result)

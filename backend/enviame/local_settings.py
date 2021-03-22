@@ -12,11 +12,6 @@ ENVIRONMENT = 'DEVELOPMENT'
 
 BASE_DIRR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# run inside cmd or django shell or proper virtual environment
-# setup with dependency: cryptography.fernet import Fernet
-# key = Fernet.generate_key()
-ENCRYPT_KEY = b'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 

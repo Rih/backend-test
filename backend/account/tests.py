@@ -35,7 +35,7 @@ class AccountTest(APITestCase):
 
     def test_api_login_user(self):
         '''
-        python3.7 manage.py test account.tests.AccountTest.test_api_login_user
+        python3 manage.py test account.tests.AccountTest.test_api_login_user
         '''
         url = reverse('token_obtain_pair')
         payload = {
@@ -53,7 +53,7 @@ class AccountTest(APITestCase):
 
     def test_api_get_user(self):
         '''
-        python3.7 manage.py test account.tests.AccountTest.test_api_get_user
+        python3 manage.py test account.tests.AccountTest.test_api_get_user
         '''
         url = reverse('api:users', kwargs={'pk': self.user.pk})
         self.client.force_authenticate(self.user)

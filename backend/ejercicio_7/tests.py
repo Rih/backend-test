@@ -23,7 +23,7 @@ class Ejercicio07Test(APITestCase):
         pass
 
     def test_api_select_employees(self):
-        # python3.7 manage.py test ejercicio_7.tests.Ejercicio07Test.test_api_select_employees
+        # python3 manage.py test ejercicio_7.tests.Ejercicio07Test.test_api_select_employees
         employees = Employees.objects.all()
         continents = Continents.objects.all()
         countries = Countries.objects.all()

@@ -35,7 +35,7 @@ class Ejercicio02Test(APITestCase):
 
     def test_api_fake_companies(self):
         '''
-       python3.7 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_fake_companies
+       python3 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_fake_companies
        '''
         url = reverse('api:company_faker')
         length = 20
@@ -53,7 +53,7 @@ class Ejercicio02Test(APITestCase):
 
     def test_api_get_companies(self):
         '''
-        python3.7 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_get_companies
+        python3 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_get_companies
         '''
         url = reverse('api:companies')
         self.client.force_authenticate(self.user)
@@ -66,7 +66,7 @@ class Ejercicio02Test(APITestCase):
 
     def test_api_post_company(self):
         '''
-        python3.7 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_post_company
+        python3 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_post_company
         '''
         url = reverse('api:companies')
         self.client.force_authenticate(self.user)
@@ -105,7 +105,7 @@ class Ejercicio02Test(APITestCase):
 
     def test_api_put_company(self):
         '''
-        python3.7 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_put_company
+        python3 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_put_company
         '''
         url = reverse('api:company', kwargs={
             'pk': self.companies[0].pk
@@ -142,7 +142,7 @@ class Ejercicio02Test(APITestCase):
 
     def test_api_patch_company(self):
         '''
-        python3.7 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_patch_company
+        python3 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_patch_company
         '''
         url = reverse('api:company', kwargs={
             'pk': self.companies[1].pk
@@ -175,7 +175,7 @@ class Ejercicio02Test(APITestCase):
 
     def test_api_delete_company(self):
         '''
-        python3.7 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_delete_company
+        python3 manage.py test ejercicio_2.tests.Ejercicio02Test.test_api_delete_company
         '''
         url = reverse('api:company', kwargs={
             'pk': self.companies[2].pk

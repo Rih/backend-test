@@ -24,21 +24,22 @@ Importante: Para todos estos script siempre estar localizado en la raíz del pro
 
 * Ejecutar lo siguiente para construir servidores:
     1. `docker-compose build` o bien `sh bin/build-servers.sh` 
-    2. Para iniciar: `docker-compose up -d` o bien `sh bin/start-dev-server.sh`
+    2. Antes de iniciar contenedores, `cp env.example a .env` y editar .env si se requiere
+    3. Para iniciar: `docker-compose up -d` o bien `sh bin/start-dev-server.sh`
 * Ejecutar lo siguiente para configurar nginx:
     1. Entrar al contenedor web: `docker exec -it $(docker-compose ps -q web) bash`  o bien `sh bin/enter-web-server.sh`    
-    2. Apuntar sitio de nginx para reverse-proxy a uwsgi: `ln -s /nginx/app_back /etc/nginx/sites-enabled/app_back`
-    3. Salir: `exit`
-    4. cp backend/enviame/local_settings.py.example backend/enviame/local_settings.py
-    5. Indicar credenciales de .env en variable DATABASES = {...} de local_settings.py
-    6. Reiniciar contenedores:
+    2. cp backend/enviame/local_settings.py.example backend/enviame/local_settings.py
+    3. Indicar credenciales de .env en variable DATABASES = {...} de local_settings.py
+    4. Si el servidor nginx esta OK: visitar localhost, debiera dar 404 Not Found con una lista de posibles urls
+    5. Si la BD esta conectada, Ejecutar las migraciones:
+        - `docker exec  -it app_web_enviame python3 manage.py migrate` o bien `sh bin/migrate.sh`   
+    6. Crear assets admin: `docker exec  -it app_web_enviame python3 manage.py collectstatic` o bien `sh bin/make-assets.sh`
+    
+    7. Crear primer usuario admin: `sh bin/load-init-user.sh` o bien `docker exec  -it app_web_enviame python3 manage.py loaddata usuario.json`
+    8. Si los assets estan OK: visitar localhost/admin y entrar con el primer usuario
+        - email = root@admin.cl ,password=<your_admin_password>
+    9. Reiniciar contenedores:
         - `docker-compose stop` y `docker-compose up -d` o bien `sh/reload-containers.sh`
-    7. Si el servidor nginx esta OK: visitar localhost, debiera dar 404 Not Found con una lista de posibles urls
-    8. Si la BD esta conectada, Ejecutar las migraciones:
-        - `docker exec  -it app_web_enviame python3.7 manage.py migrate` o bien `sh bin/migrate.sh`   
-    9. Crear assets admin: `docker exec  -it app_web_enviame python3.7 manage.py collectstatic` o bien `sh bin/make-assets.sh`
-    10. Crear primer usuario admin: `sh bin/load-init-user.sh` o bien `docker exec  -it app_web_enviame python3.7 manage.py loaddata usuario.json`
-    11 Si los assets estan OK: visitar localhost/admin y entrar con el primer usuario
 ### Ejercicio 2: API REST + CRUD
 
 Dentro del ambiente dockerizado desarrolla una API Rest, con el stack de tu preferencia, que implemente un CRUD de una entidad tipo 'empresa'. Preocupate de incluir un script que genere N registros con datos "fake" (utilizando una librería faker).
@@ -54,7 +55,7 @@ Dentro del ambiente dockerizado desarrolla una API Rest, con el stack de tu pref
     ```
   
   * El usuario de ejemplo puede ser creado por el siguiente script si no se hizo en el paso previo:
-    * `sh bin/load-init-user.sh` o bien `docker exec  -it app_web_enviame python3.7 manage.py loaddata usuario.json`
+    * `sh bin/load-init-user.sh` o bien `docker exec  -it app_web_enviame python3 manage.py loaddata usuario.json`
     * La contraseña se proporcinará por e-mail a la entrega de este test
     
   * Resultado esperado:
@@ -64,7 +65,7 @@ Dentro del ambiente dockerizado desarrolla una API Rest, con el stack de tu pref
         "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2MzY5ODQ5LCJqdGkiOiIyYjg0ZTJmNGYwY2M0MzY2OTE5OWQxNTI5Njk1M2E4ZCIsInVzZXJfaWQiOjF9.9EA35dfNaijXns0X8Pa5LhamDjezpDdEEZDVrZfwOvs"
     }
    ```
-  * Usar el valor de access en Authorization Bearer $access
+  * Usar el valor de access en Authorization Bearer $access o en postman Authorization -> opción Bearer token
   
 * Hay un endpoint para generar datos fake de empresa:
     * URL: `http://localhost/api/v1/faker/create-companies/`
@@ -78,10 +79,6 @@ Dentro del ambiente dockerizado desarrolla una API Rest, con el stack de tu pref
     ```
    
 
-
-* Hay dos maneras de generar
-localhost/api/v1/faker/create-companies/
-
 ### Ejercicio 3: Análisis + Desarrollo 
 
 Crea un script en el lenguaje de tu elección y encuentre la(s) cadena de texto que es(son) igual al revés en el siguiente texto:
@@ -92,7 +89,7 @@ Crea un script en el lenguaje de tu elección y encuentre la(s) cadena de texto 
 R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
 * Opción 1:
     * Levantar contenedor `sh bin/start-dev-server.sh`
-    * Ejecutar `sh bin/exercise-3.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_3/palindrome.py`
+    * Ejecutar `sh bin/exercise-3.sh` o bien `docker exec  -it app_web_enviame python3 ejercicio_3/palindrome.py`
 * Opción 2:
     * Prerequisitos:
         - python3
@@ -113,7 +110,7 @@ Documentación (Postman) del endpoint a usar: [Colección Postman](https://githu
 R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
 * Opción 1:
     * Levantar contenedor `sh bin/start-dev-server.sh`
-    * Ejecutar `sh bin/exercise-4.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_4/main.py`
+    * Ejecutar `sh bin/exercise-4.sh` o bien `docker exec  -it app_web_enviame python3 ejercicio_4/main.py`
 * Opción 2:
     * Prerequisitos:
         - python3
@@ -155,7 +152,7 @@ Crea un script en tu lenguaje favorito que obtenga el primer número de Fibonacc
 R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
 * Opción 1:
     * Levantar contenedor `sh bin/start-dev-server.sh`
-    * Ejecutar `sh bin/exercise-5.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_5/fibo_divisors.py`
+    * Ejecutar `sh bin/exercise-5.sh` o bien `docker exec  -it app_web_enviame python3 ejercicio_5/fibo_divisors.py`
 * Opción 2:
     * Prerequisitos:
         - python3
@@ -189,7 +186,7 @@ Asuma que el tiempo de despacho está determinado por una sucesión numérica, d
 R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
 * Opción 1:
     * Levantar contenedor `sh bin/start-dev-server.sh`
-    * Ejecutar `sh bin/exercise-6.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_6/estimate_distance.py`
+    * Ejecutar `sh bin/exercise-6.sh` o bien `docker exec  -it app_web_enviame python3 ejercicio_6/estimate_distance.py`
 * Opción 2:
     * Prerequisitos:
         - python3
@@ -259,10 +256,10 @@ insert into employees values (11, 11, 'Heung-min', 'Son', 5100);
 insert into employees values (12, 12, 'Peter', 'Johnson', 6100);
 
 R:
-* Si ya se tiene un modelo creado, usar directamente el Script en backend/ejercicio_7/salary_adjust.sql`, solo probado en postgreSQL
+* Si ya se tiene un modelo creado, usar directamente el Script en backend/ejercicio_7/salary_adjust.sql` (solo probado en postgreSQL)
 * De otra forma, se puede crear el modelo desde el mismo proyecto backend
 usando lo siguiente 
-    -  Crear las tablas con: `docker exec  -it app_web_enviame python3.7 manage.py migrate` o bien `sh bin/migrate.sh` si no se ha hecho antes.
-    -  para poblar la bd: `docker exec  -it app_web_enviame python3.7 manage.py loaddata continents.json countries.json employees.json` o bien `sh bin/load-init-employee.sh`
+    -  Crear las tablas con: `docker exec  -it app_web_enviame python3 manage.py migrate` o bien `sh bin/migrate.sh` si no se ha hecho antes.
+    -  para poblar la bd: `docker exec  -it app_web_enviame python3 manage.py loaddata continents.json countries.json employees.json` o bien `sh bin/load-init-employee.sh`
     - o usar el script sql modificado a postgreSQL: `backend/ejercicio_7/populate.sql
 * Ejecutar el script en el browser de DB a gusto: ej. [DBeaver](https://dbeaver.io/download/)
