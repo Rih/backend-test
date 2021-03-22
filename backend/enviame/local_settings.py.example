@@ -23,11 +23,11 @@ ENCRYPT_KEY = b'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'xxxx',
-        'USER': 'xxxx',
-        'PASSWORD': 'xxxxxxxxxx',
+        'NAME': 'xxxx',  # Please set exact as ${POSTGRES_USER} in docker-compose .env
+        'USER': 'xxxx',  # Please set exact as ${POSTGRES_USER} in docker-compose .env
+        'PASSWORD': 'xxxxxxxxxx', # Please set exact as ${POSTGRES_PASSWORD}
         'HOST': 'db',
-        'PORT': '5432',
+        'PORT': '5432', # NOTE: DO NOT CHANGE IT
     }
 }
 

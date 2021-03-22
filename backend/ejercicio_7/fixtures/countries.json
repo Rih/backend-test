@@ -1,0 +1,98 @@
+[
+{
+  "model": "ejercicio_7.countries",
+  "pk": 1,
+  "fields": {
+    "name":  "Chile",
+    "continent_id": 1
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 2,
+  "fields": {
+    "name":  "Argentina",
+    "continent_id":  1
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 3,
+  "fields": {
+    "name":  "Canadá",
+    "continent_id":  1
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 4,
+  "fields": {
+    "name":  "Colombia",
+    "continent_id":  1
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 5,
+  "fields": {
+    "name":  "Alemania",
+    "continent_id":  2
+  }
+},
+{
+  "model": "ejercicio_7.countries",
+  "pk": 6,
+  "fields": {
+    "name":  "Francia",
+    "continent_id": 2
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 7,
+  "fields": {
+    "name":  "España",
+    "continent_id":  2
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 8,
+  "fields": {
+    "name":  "Grecia",
+    "continent_id":  2
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 9,
+  "fields": {
+    "name":  "India",
+    "continent_id":  3
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 10,
+  "fields": {
+    "name":  "Japón",
+    "continent_id":  3
+  }
+},
+ {
+  "model": "ejercicio_7.countries",
+  "pk": 11,
+  "fields": {
+    "name":  "Corea del Sur",
+    "continent_id":  3
+  }
+},
+  {
+  "model": "ejercicio_7.countries",
+  "pk": 12,
+  "fields": {
+    "name":  "Australia",
+    "continent_id":  4
+  }
+}
+]

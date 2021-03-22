@@ -1,0 +1,42 @@
+[
+{
+  "model": "ejercicio_7.continents",
+  "pk": 1,
+  "fields": {
+    "name": "América",
+    "anual_adjustment": 4
+  }
+},
+  {
+  "model": "ejercicio_7.continents",
+  "pk": 2,
+  "fields": {
+    "name": "Europa",
+    "anual_adjustment": 5
+  }
+},
+  {
+  "model": "ejercicio_7.continents",
+  "pk": 3,
+  "fields": {
+    "name": "Asia",
+    "anual_adjustment": 6
+  }
+},
+  {
+  "model": "ejercicio_7.continents",
+  "pk": 4,
+  "fields": {
+    "name": "Oceanía",
+    "anual_adjustment": 6
+  }
+},
+  {
+  "model": "ejercicio_7.continents",
+  "pk": 5,
+  "fields": {
+    "name": "Africa",
+    "anual_adjustment": 5
+  }
+}
+]

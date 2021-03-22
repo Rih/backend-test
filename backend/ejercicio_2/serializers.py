@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ejercicio_2.models import Company
 from rest_framework import serializers
 

@@ -90,11 +90,11 @@ if __name__ == '__main__':
     subseq = palindrome_subsequences(string)
     print("\nAll subsequences found: ", subseq)
     assert_checking_substr_found(subseq, string)
-    str_input = input(f"Enter other example, be a human ;), I think recommended less than 600 chrs (Type \"{exit_condition}\" to exit): ")
+    str_input = input(f"Enter other example, be gentle ;), I think recommended less than 600 chrs (Type \"{exit_condition}\" to exit): ")
     while str_input != exit_condition:
         subseq = palindrome_subsequences(str_input)
         print("\nAll subsequences found: ", subseq)
-        str_input = input(f"Enter other example, be a human ;), I think recommended less than 600 chrs (Type \"{exit_condition}\" to exit): ")
+        str_input = input(f"Enter other example, be gentle ;), I think recommended less than 600 chrs (Type \"{exit_condition}\" to exit): ")
     print("Finish.")
 
 

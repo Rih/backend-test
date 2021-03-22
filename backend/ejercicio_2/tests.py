@@ -12,9 +12,6 @@ from django.conf import settings
 
 
 @override_settings(
-    STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage',
-    EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend',
-    MEDIA_ROOT='/app/test_media/',
     ENVIRONMENT='UNIT_TESTING'
 )
 class Ejercicio02Test(APITestCase):
