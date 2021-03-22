@@ -102,6 +102,7 @@ R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado d
         - `virtualenv --python='python3' env_iame`
     * Ingresar al ambiente:
         - `source env_iame/bin/activate`  
+        - `pip install -r requirements.txt`
     * Si aparece en el prompt de la consola (env_viame). Ejecutar:
         - `python backend/ejercicio_3/palindrome.py`   
    
@@ -109,8 +110,23 @@ R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado d
 Desarrolla una función o script que consuma la API Envíame para la creación de un Envío y almacene la respuesta en algún medio de almacenamiento permanente.
 Documentación (Postman) del endpoint a usar: [Colección Postman](https://github.com/enviame/backend-test/blob/main/Backend-test.postman_collection.json)
 
-
-
+R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado del ejercicio 1 o por virtualenv en la maquina host.
+* Opción 1:
+    * Levantar contenedor `sh bin/start-dev-server.sh`
+    * Ejecutar `sh bin/exercise-4.sh` o bien `docker exec  -it app_web_enviame python3.7 ejercicio_4/main.py`
+* Opción 2:
+    * Prerequisitos:
+        - python3
+        - pip
+    * Instalar virtualenv: pip install virtualenv
+    * Crear un ambiente: 
+        - `virtualenv --python='python3' env_iame`
+    * Ingresar al ambiente:
+        - `source env_iame/bin/activate`  
+        - `pip install -r requirements.txt`
+    * Si aparece en el prompt de la consola (env_viame). Ejecutar:
+        - `python backend/ejercicio_4/main.py` 
+    * Puede revisar si se insertó en backend/enviame.db, abrir con [SQLite DB Browser](https://sqlitebrowser.org/dl/)
 
 ### Ejercicio 5: Análisis + Desarrollo
 La serie de Fibonacci se construye utilizando la siguiente relación de recurrencia: `Fn = Fn1 + Fn2, donde F1 = 1 y F2 = 1`. Por ende, los primeros doce términos de esta serie son: `1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144`
@@ -149,6 +165,7 @@ R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado d
         - `virtualenv --python='python3' env_iame`
     * Ingresar al ambiente:
         - `source env_iame/bin/activate`  
+        - `pip install -r requirements.txt`
     * Si aparece en el prompt de la consola (env_viame). Ejecutar:
         - `python backend/ejercicio_5/fibo_divisors.py` 
 
@@ -182,6 +199,7 @@ R: Para ejecutar scripts python puede usar 2 vías: por el ambiente web creado d
         - `virtualenv --python='python3' env_iame`
     * Ingresar al ambiente:
         - `source env_iame/bin/activate`  
+        - `pip install -r requirements.txt`
     * Si aparece en el prompt de la consola (env_viame). Ejecutar:
         - `python backend/ejercicio_6/estimate_distance.py` 
 
@@ -247,4 +265,4 @@ usando lo siguiente
     -  Crear las tablas con: `docker exec  -it app_web_enviame python3.7 manage.py migrate` o bien `sh bin/migrate.sh` si no se ha hecho antes.
     -  para poblar la bd: `docker exec  -it app_web_enviame python3.7 manage.py loaddata continents.json countries.json employees.json` o bien `sh bin/load-init-employee.sh`
     - o usar el script sql modificado a postgreSQL: `backend/ejercicio_7/populate.sql
-* Ejecutar el script en el browser DB a gusto: ej. [DBeaver](https://dbeaver.io/download/)
+* Ejecutar el script en el browser de DB a gusto: ej. [DBeaver](https://dbeaver.io/download/)

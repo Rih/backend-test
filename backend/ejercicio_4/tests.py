@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 from django.test import SimpleTestCase
 import json
 from ejercicio_4.connection import ConnectDB
-from ejercicio_4.delivery import DeliveryJob
+from ejercicio_4.delivery import Delivery
+from ejercicio_4.mock_api import result_api
 from django.test.utils import override_settings
 
 # Create your tests here.
@@ -17,24 +18,10 @@ class Ejercicio04Test(SimpleTestCase):
 
     def setUp(self):
         ''' Check coverage
-            coverage3 run --source='.' manage.py test account
+            coverage3 run --source='.' manage.py test ejercicio_4
         '''
 
-    def test_create_delivery(self):
-        # python3.7 manage.py test ejercicio_4.tests.Ejercicio04Test.test_create_delivery
-        job = DeliveryJob()
-        result = job.create_delivery('123', '1234')
+    def test_connection_insert_handler(self):
+        # python3.7 manage.py test ejercicio_4.tests.Ejercicio04Test.test_connection_insert_handler
+        result = ConnectDB(table='person').insert_handler(result_api)
         print(result)
-        self.assertEquals(422, result['status'])
-
-    def test_connection_create(self):
-        # python3.7 manage.py test ejercicio_4.tests.Ejercicio04Test.test_connection_create
-        conn = ConnectDB(table='other').create_table()
-
-    def test_connection_insert(self):
-        # python3.7 manage.py test ejercicio_4.tests.Ejercicio04Test.test_connection_insert
-        conn = ConnectDB(table='other').insert('asdf')
-
-    def test_connection_select(self):
-        # python3.7 manage.py test ejercicio_4.tests.Ejercicio04Test.test_connection_select
-        conn = ConnectDB(table='person').select()

@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from api.models import Apimodel
 # Create your models here.
 

@@ -1,0 +1,59 @@
+Name                                     Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------
+account/__init__.py                          0      0   100%
+account/admin.py                             5      0   100%
+account/apps.py                              3      3     0%   1-5
+account/factories.py                        13      0   100%
+account/managers.py                         19     13    32%   11-17, 20-21, 24-29
+account/migrations/0001_initial.py           6      0   100%
+account/migrations/__init__.py               0      0   100%
+account/models.py                           30      4    87%   45-46, 52, 58
+account/serializers.py                      21      7    67%   13-17, 21-24
+account/tests.py                            34      0   100%
+account/urls.py                              6      6     0%   1-16
+account/views.py                            23      2    91%   25-26
+api/__init__.py                              0      0   100%
+api/admin.py                                24     11    54%   25-53
+api/apps.py                                  4      4     0%   2-8
+api/migrations/__init__.py                   0      0   100%
+api/models.py                               13      0   100%
+api/urls.py                                  7      0   100%
+api/views.py                                 1      1     0%   2
+ejercicio_2/__init__.py                      0      0   100%
+ejercicio_2/admin.py                         1      0   100%
+ejercicio_2/apps.py                          3      3     0%   1-5
+ejercicio_2/factories.py                    14      0   100%
+ejercicio_2/managers.py                      0      0   100%
+ejercicio_2/migrations/0001_initial.py       5      0   100%
+ejercicio_2/migrations/__init__.py           0      0   100%
+ejercicio_2/models.py                       12      1    92%   16
+ejercicio_2/serializers.py                  14      0   100%
+ejercicio_2/tests.py                        93      0   100%
+ejercicio_2/urls.py                          5      5     0%   1-10
+ejercicio_2/views.py                        61      1    98%   77
+ejercicio_4/__init__.py                      0      0   100%
+ejercicio_4/admin.py                         1      1     0%   1
+ejercicio_4/api.py                          13      7    46%   9-11, 18, 51-57
+ejercicio_4/apps.py                          3      3     0%   1-5
+ejercicio_4/connection.py                   65     35    46%   28-46, 73-93
+ejercicio_4/delivery.py                     19     10    47%   4, 13-14, 18-20, 23-26
+ejercicio_4/main.py                         18     18     0%   2-22
+ejercicio_4/migrations/__init__.py           0      0   100%
+ejercicio_4/mock_api.py                      1      0   100%
+ejercicio_4/models.py                        1      1     0%   1
+ejercicio_4/tests.py                        14      0   100%
+ejercicio_4/views.py                         1      1     0%   1
+ejercicio_7/__init__.py                      0      0   100%
+ejercicio_7/apps.py                          3      3     0%   1-5
+ejercicio_7/migrations/0001_initial.py       6      0   100%
+ejercicio_7/migrations/__init__.py           0      0   100%
+ejercicio_7/models.py                       21      0   100%
+ejercicio_7/tests.py                        22      0   100%
+enviame/__init__.py                          0      0   100%
+enviame/local_settings.py                   25      6    76%   69-81
+enviame/settings.py                         30      0   100%
+enviame/urls.py                             10      0   100%
+enviame/wsgi.py                              4      4     0%   10-16
+manage.py                                   13      6    54%   9-21
+----------------------------------------------------------------------
+TOTAL                                      687    156    77%
